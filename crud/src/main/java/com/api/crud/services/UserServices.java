@@ -30,9 +30,14 @@ public class UserServices { //Like a handler
     public UserModel updateUserById(UserModel request, Long id){
         UserModel user = userRepository.findById(id).get();
         
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
+        if (user != null) {
+            user.setFirstName(request.getFirstName());
+            user.setLastName(request.getLastName());
+            user.setEmail(request.getEmail());
+    
+            // Save the updated user back to the repository
+            user = userRepository.save(user);
+        }
 
         return user;
     }
